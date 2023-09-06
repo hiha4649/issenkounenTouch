@@ -11,3 +11,6 @@ volumeButton.onclick = function() {
     volumeButton.setAttribute('class', 'volume-on')
   }
 }
+
+//音量の制御ができるようにする
+//まずはメインの作成から？
