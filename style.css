@@ -1,0 +1,18 @@
+body {
+  color: #FFFFFF;
+}
+
+canvas {
+  color: aqua;
+}
+
+.volume {
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  background-color: #FFFFFF;
+  background-image: url('sound_on.png');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
