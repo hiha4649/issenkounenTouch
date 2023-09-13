@@ -4,19 +4,20 @@ mikuView.setAttribute('height', 360);
 const mikuCanvas = mikuView.getContext('2d');
 const mikuImage = new Image();
 let number = 1
-//アニメーション処理
-function flameChange() {
+//ロード完了後実行
+window.onload = function () {
+  setInterval(flameChange, 66);
+  function flameChange() {
   mikuCanvas.fillRect(0, 0, 640, 360);
   number = number + 1;
   if (number >= 11) {
     number = 1;
   }
   mikuImage.src = 'image/number_' + number + '.png';
-  mikuImage.onload = function() {
-    mikuCanvas.drawImage(mikuImage, 0, 0, 640, 360);
+  mikuCanvas.drawImage(mikuImage, 0, 0, 640, 360);
   }
 }
-setInterval(flameChange, 200);
+
 
 /*
 ・マウスが押された時アニメーション画面を変更する（キーボードやスマホのタッチに対応しても面白そう）
