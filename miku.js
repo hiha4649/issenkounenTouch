@@ -34,11 +34,11 @@ function move() {
       console.log('押し')
 
       function flameChangeOn() {
+        canvas.Y = canvas.Y + canvas.moveY;
         if (canvas.Y >= mikuView.height) {
           canvas.Y = mikuView.height
           clearInterval(onLoop);
         }
-      canvas.Y = canvas.Y + canvas.moveY;
       }
         const onLoop = setInterval(flameChangeOn,flameRate);
     }
@@ -52,11 +52,11 @@ function move() {
       console.log('上げ');
 
       function flameChangeOff() {
+        canvas.Y = canvas.Y - canvas.moveY;
         if (canvas.Y <= 0) {
           canvas.Y = 0
           clearInterval(offLoop);
         }
-      canvas.Y = canvas.Y - canvas.moveY;
       }
       const offLoop = setInterval(flameChangeOff, flameRate);
     }
