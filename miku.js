@@ -9,6 +9,7 @@ let canvas ={
   Y: 0,
   moveY: 5
 }
+let flameRate = 66
 
 //ロード完了後実行
 window.onload = move
@@ -32,35 +33,32 @@ function move() {
     function moveOn() {
       console.log('押し')
 
-      setInterval(flameChangeOn, 66);
       function flameChangeOn() {
-        canvas.Y = canvas.Y + canvas.moveY;
-        /*
-        if (canvas.Y = mikuView.height) {
-          canvas.moveY = 0;
-        } else {
-          canvas.moveY = 5
+        if (canvas.Y >= mikuView.height) {
+          canvas.Y = mikuView.height
+          clearInterval(onLoop);
         }
-        */
+      canvas.Y = canvas.Y + canvas.moveY;
       }
-      
-      //canvas外にカーソルが出た場合の処理
-      
+        const onLoop = setInterval(flameChangeOn,flameRate);
     }
+
+
+    //canvas外にカーソルが出た場合の処理
+      
     //クリック解除後の処理
     mikuView.onmouseup = moveOff;
     function moveOff() {
       console.log('上げ');
 
-      setInterval(flameChangeOff, 66);
       function flameChangeOff() {
-        canvas.Y = canvas.Y - canvas.moveY;
-        /*
-        if (canvas.Y = 0) {
+        if (canvas.Y <= 0) {
           canvas.Y = 0
+          clearInterval(offLoop);
         }
-        */
+      canvas.Y = canvas.Y - canvas.moveY;
       }
+      const offLoop = setInterval(flameChangeOff, flameRate);
     }
   }
 }
