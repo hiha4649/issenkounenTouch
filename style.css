@@ -3,7 +3,7 @@ body {
 }
 
 canvas {
-  color: aqua;
+  background-color: aqua;
 }
 
 .volume-on {
