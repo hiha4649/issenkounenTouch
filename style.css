@@ -1,9 +1,9 @@
 body {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 canvas {
-  background-color: aqua;
+  background-color: #FFFFFF;
 }
 
 .volume-on {
