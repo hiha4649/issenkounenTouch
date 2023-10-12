@@ -1,10 +1,12 @@
+let width = 640
+let height = 360
+
 const mikuView = document.getElementById('canvas');
-mikuView.setAttribute('width', 640);
-mikuView.setAttribute('height', 360);
+mikuView.setAttribute('width', width);
+mikuView.setAttribute('height', height);
 const mikuCanvas = mikuView.getContext('2d');
 const mikuImage = new Image();
-//画像の値セット
-let number = 1
+
 //画像動作の値セット
 let canvas ={
   X: 0,
@@ -14,23 +16,23 @@ let canvas ={
 //画面切り替えインターバル
 let flameRate = 66
 
+//画像切り替え処理
+let number = 1
+function flameChange() {
+  console.log(canvas.Y); //確認
+  mikuCanvas.clearRect(0, 0, width, height);
+  mikuImage.src = 'image/number_' + number + '.png';
+  mikuCanvas.drawImage(mikuImage, canvas.X, canvas.Y, 640, 360);
+  number = number + 1;
+  if (number >= 11) {
+    number = 1;
+  }
+}
+
 //ロード完了後実行
 window.onload = move
 function move() {
-  mikuImage.onload = setInterval(flameChange, 66);
-  
-  //画像切り替え処理
-  function flameChange() {
-    console.log(canvas.Y); //確認
-    mikuCanvas.fillRect(0, 0, 640, 360);
-    number = number + 1;
-    if (number >= 11) {
-      number = 1;
-    }
-  
-    mikuImage.src = 'image/number_' + number + '.png';
-    mikuCanvas.drawImage(mikuImage, canvas.X, canvas.Y, 640, 360);
-  }
+  mikuImage.onload = setInterval(flameChange, flameRate);
 }
     //クリック中の処理
     mikuView.addEventListener('pointerdown', function() {
@@ -77,7 +79,7 @@ function move() {
 
 /*
 ・マウスが押された時アニメーション画面を変更する（キーボードやスマホのタッチに対応しても面白そう）
-・画像が上がり下がりするようにする
+・Canvas外で右クリックした時加速するバグ
 ・一千光年の画面の切り取り
-・一千光年のアニメーション枚数確認、フレームレート確認
+・一千光年のアニメーション枚数確認、フレームレート(15fps)
 */
