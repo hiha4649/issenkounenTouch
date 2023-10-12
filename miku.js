@@ -3,18 +3,21 @@ mikuView.setAttribute('width', 640);
 mikuView.setAttribute('height', 360);
 const mikuCanvas = mikuView.getContext('2d');
 const mikuImage = new Image();
+//画像の値セット
 let number = 1
+//画像動作の値セット
 let canvas ={
   X: 0,
   Y: 0,
   moveY: 5
 }
+//画面切り替えインターバル
 let flameRate = 66
 
 //ロード完了後実行
 window.onload = move
 function move() {
-  setInterval(flameChange, 66);
+  mikuImage.onload = setInterval(flameChange, 66);
   
   //画像切り替え処理
   function flameChange() {
@@ -24,44 +27,52 @@ function move() {
     if (number >= 11) {
       number = 1;
     }
-
+  
     mikuImage.src = 'image/number_' + number + '.png';
     mikuCanvas.drawImage(mikuImage, canvas.X, canvas.Y, 640, 360);
-
+  }
+}
     //クリック中の処理
-    mikuView.onmousedown = moveOn;
-    function moveOn() {
-      console.log('押し')
+    mikuView.addEventListener('pointerdown', function() {
+      console.log('押し');
+      const onLoop = setInterval(flameChangeOn,flameRate);
+    
+      document.addEventListener('pointerup', function() {
+      clearInterval(onLoop);
+      console.log('押し終了');
+      }, {once: true});
+    })
 
-      function flameChangeOn() {
-        canvas.Y = canvas.Y + canvas.moveY;
-        if (canvas.Y >= mikuView.height) {
-          canvas.Y = mikuView.height
-          clearInterval(onLoop);
-        }
+    function flameChangeOn() {
+      canvas.Y = canvas.Y + canvas.moveY;
+      if (canvas.Y >= mikuView.height) {
+        canvas.Y = mikuView.height
       }
-        const onLoop = setInterval(flameChangeOn,flameRate);
     }
 
-
-    //canvas外にカーソルが出た場合の処理
-      
     //クリック解除後の処理
-    mikuView.onmouseup = moveOff;
-    function moveOff() {
+    document.addEventListener('pointerup', function() {
       console.log('上げ');
+      const offLoop = setInterval(flameChangeOff, flameRate);
 
-      function flameChangeOff() {
+      mikuView.addEventListener('pointerdown', function() {
+      clearInterval(offLoop);
+      console.log('上げ終了');
+      }, {once: true});
+    })
+    
+    function flameChangeOff() {
         canvas.Y = canvas.Y - canvas.moveY;
         if (canvas.Y <= 0) {
           canvas.Y = 0
-          clearInterval(offLoop);
         }
       }
-      const offLoop = setInterval(flameChangeOff, flameRate);
-    }
-  }
-}
+ 
+  
+
+    //canvas外にカーソルが出た場合の処理
+      
+
 
 
 /*
